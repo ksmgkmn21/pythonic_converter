@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding='utf-8'?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="name">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:string">
+          <xs:attribute type="typeLang" name="lang" use="optional"/>
+          <xs:attribute type="typeSecond" name="second" use="optional"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="period" type="xs:byte"/>
+  <xs:element name="quota">
+    <xs:complexType>
+      <xs:simpleContent>
+        <xs:extension base="xs:short">
+          <xs:attribute type="typeSpec"  name="spec" use="optional"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="field" type="typeField"/>
+  <xs:element name="last_min_score" >
+    <xs:complexType >
+      <xs:simpleContent>
+        <xs:extension base="typeScore">
+          <xs:attribute type="typeOrder" name="order" use="optional"/>
+        </xs:extension>
+      </xs:simpleContent>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="grant" type="grantType" />
+  <xs:element name="item">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="name"/>
+        <xs:element ref="period"/>
+        <xs:element ref="quota"/>
+        <xs:element ref="field"/>
+        <xs:element ref="last_min_score"/>
+        <xs:element ref="grant" />
+      </xs:sequence>
+      <xs:attribute type="xs:string" name="faculty" use="optional"/>
+      <xs:attribute type="idType" name="id" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="university">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="item" maxOccurs="unbounded" minOccurs="0"/>
+      </xs:sequence>
+      <xs:attribute type="xs:string" name="name" use="optional"/>
+      <xs:attribute type="typeOfuni" name="uType" use="optional"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="departments">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element ref="university" maxOccurs="unbounded" minOccurs="0"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  
+  <!-- some fields specific for bounded-->
+
+  <xs:simpleType name = "idType" >
+    <xs:restriction base = "xs:integer">
+      <xs:pattern value = "[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name = "typeOfuni" >
+    <xs:restriction base = "xs:string">
+      <xs:enumeration value = "Devlet" />
+      <xs:enumeration value = "Vakıf" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name = "typeLang" >
+    <xs:restriction base = "xs:string">
+      <xs:enumeration value = "en" />
+      <xs:enumeration value = "" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name = "typeSecond" >
+    <xs:restriction base = "xs:string">
+      <xs:enumeration value = "no" />
+      <xs:enumeration value = "yes" />
+    </xs:restriction>
+  </xs:simpleType>
+
+
+  <xs:simpleType name = "typeSpec" >
+    <xs:restriction base = "xs:string">
+        <xs:pattern value="\d*|\s{0}" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name = "typeField" >
+    <xs:restriction base = "xs:string">
+      <xs:enumeration value = "SAY" />
+      <xs:enumeration value = "EA" />
+      <xs:enumeration value = "SÖZ" />
+      <xs:enumeration value = "DİL" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name = "typeOrder" >
+    <xs:restriction base = "xs:string">
+      <xs:pattern value="\d*|\s{0}" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name = "typeScore" >
+    <xs:restriction base = "xs:string">
+      <xs:pattern value="\d*|\s{0}"/>
+      <xs:pattern value="[1-9][0-9][0-9],[0-9]*"/>
+    </xs:restriction>
+  </xs:simpleType>
+  
+
+  <xs:simpleType name = "grantType" > 
+    <xs:restriction base = "xs:string">
+      <xs:enumeration value = "" />
+      <xs:enumeration value = "25" />
+      <xs:enumeration value = "50" />
+      <xs:enumeration value = "100"/>
+    </xs:restriction>
+  </xs:simpleType>
+  
+</xs:schema>
+
